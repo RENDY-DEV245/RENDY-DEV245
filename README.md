@@ -1,8 +1,6 @@
 # Rendy-senior fullstack software engineer
 
-<p align="center">
-  <img src="./profile-3d-contrib/profile-night-view.svg" alt="3D Contribution Buildings" width="100%" />
-</p>
+![](https://github-readme-activity-graph.vercel.app/graph?username=RENDY-DEV245&theme=react-dark)
 
 ## 🌐 Socials:
 [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:rendyajah245@gmail.com) 
