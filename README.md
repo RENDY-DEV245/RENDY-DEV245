@@ -1,8 +1,12 @@
 # Rendy-senior fullstack software engineer
 
-# 💫 About Me:
- Building scalable web applications and digital products<br> Open to collaborating on SaaS, FinTech & E-Commerce projects<br> Focused on backend architecture, APIs & system design<br> Currently deepening my knowledge in Cloud & DevOps<br> Ask me about Laravel, React, TypeScript, SQL & REST APIs<br> I turn ideas into production-ready software
+# ♟️ lets play with me
 
+<div align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3d6NGI5c2M1OGMydHFzeWVtdnV1c3I3NHdrOWlycGx0NzBocmx0ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKL31S84uSAtRmM/giphy.gif" alt="Chess Animation" width="100%" max-width="600px" style="border-radius:10px;" />
+  
+  <p><i>"Software Engineering is like a game of Chess: strategy, patience, and anticipating every move."</i></p>
+</div>
 
 ## 🌐 Socials:
 [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:rendyajah245@gmail.com) 
