@@ -7,6 +7,7 @@
 
   <br />
 
+  <i>"Software Engineering is like a game of Chess: strategy, patience, and anticipating every move."</i>
 </div>
 
 ## 🌐 Socials:
