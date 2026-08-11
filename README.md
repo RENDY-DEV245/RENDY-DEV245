@@ -1,6 +1,6 @@
 # Rendy-senior fullstack software engineer
 
-![](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=24,25,26&height=120&section=header)
+![](https://github-readme-activity-graph.vercel.app/graph?username=RENDY-DEV245&theme=react-dark)
 ![](https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=F7DF1E&width=435&lines=Fullstack+Developer;Laravel+%26+React+Expert;DevOps+%26+Cloud+Enthusiast)
 
 ## 🌐 Socials:
