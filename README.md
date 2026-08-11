@@ -1,6 +1,7 @@
 # Rendy-senior fullstack software engineer
 
 ![](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=24,25,26&height=120&section=header)
+![](https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=F7DF1E&width=435&lines=Fullstack+Developer;Laravel+%26+React+Expert;DevOps+%26+Cloud+Enthusiast)
 
 ## 🌐 Socials:
 [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:rendyajah245@gmail.com) 
