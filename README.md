@@ -1,7 +1,7 @@
 # Rendy-senior fullstack software engineer
 
 # 💫 About Me:
-🔭 Building scalable web applications and digital products<br>🤝 Open to collaborating on SaaS, FinTech & E-Commerce projects<br>🧩 Focused on backend architecture, APIs & system design<br>🌱 Currently deepening my knowledge in Cloud & DevOps<br>💬 Ask me about Laravel, React, TypeScript, SQL & REST APIs<br>⚡ I turn ideas into production-ready software
+ Building scalable web applications and digital products<br> Open to collaborating on SaaS, FinTech & E-Commerce projects<br> Focused on backend architecture, APIs & system design<br> Currently deepening my knowledge in Cloud & DevOps<br> Ask me about Laravel, React, TypeScript, SQL & REST APIs<br> I turn ideas into production-ready software
 
 
 ## 🌐 Socials:
