@@ -1,6 +1,6 @@
 # Rendy-senior fullstack software engineer
 
-![](https://github-readme-activity-graph.vercel.app/graph?username=RENDY-DEV245&theme=react-dark)
+![](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=24,25,26&height=120&section=header)
 
 ## 🌐 Socials:
 [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:rendyajah245@gmail.com) 
