@@ -1,11 +1,13 @@
 # Rendy-senior fullstack software engineer
 
-# ♟️ lets play with me
+# ♟️ Let's Play With Me
 
 <div align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3d6NGI5c2M1OGMydHFzeWVtdnV1c3I3NHdrOWlycGx0NzBocmx0ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKL31S84uSAtRmM/giphy.gif" alt="Chess Animation" width="100%" max-width="600px" style="border-radius:10px;" />
-  
-  <p><i>"Software Engineering is like a game of Chess: strategy, patience, and anticipating every move."</i></p>
+  <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" alt="Chess Animation" width="500" />
+
+  <br />
+
+  <i>"Software Engineering is like a game of Chess: strategy, patience, and anticipating every move."</i>
 </div>
 
 ## 🌐 Socials:
