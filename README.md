@@ -3,11 +3,10 @@
 # ♟️ Let's Play With Me
 
 <div align="center">
-  <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" alt="Chess Animation" width="500" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Kasparov_versus_Deep_Blue_1997_game_6.gif" alt="Chess Game Animation" width="450" />
 
   <br />
 
-  <i>"Software Engineering is like a game of Chess: strategy, patience, and anticipating every move."</i>
 </div>
 
 ## 🌐 Socials:
