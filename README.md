@@ -1,14 +1,8 @@
 # Rendy-senior fullstack software engineer
 
-# ♟️ Let's Play With Me
-
-<div align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Kasparov_versus_Deep_Blue_1997_game_6.gif" alt="Kasparov vs Deep Blue Chess Game" width="450" />
-
-  <br />
-
-  <i>"Software Engineering is like a game of Chess: strategy, patience, and anticipating every move."</i>
-</div>
+<p align="center">
+  <img src="./profile-3d-contrib/profile-night-view.svg" alt="3D Contribution Buildings" width="100%" />
+</p>
 
 ## 🌐 Socials:
 [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:rendyajah245@gmail.com) 
