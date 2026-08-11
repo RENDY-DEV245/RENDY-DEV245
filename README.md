@@ -3,7 +3,7 @@
 # ♟️ Let's Play With Me
 
 <div align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Kasparov_versus_Deep_Blue_1997_game_6.gif" alt="Chess Game Animation" width="450" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Kasparov_versus_Deep_Blue_1997_game_6.gif" alt="Kasparov vs Deep Blue Chess Game" width="450" />
 
   <br />
 
