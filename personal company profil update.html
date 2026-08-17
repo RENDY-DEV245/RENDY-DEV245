@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rendy — Full Stack Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-main: #FFFFFF;
+    --bg-subtle: #F8FAFC;
+    --bg-card: #FFFFFF;
+    --text-main: #0B0F19;
+    --text-muted: #475569;
+    --text-light: #94A3B8;
+    
+    /* Tech Blue Palette */
+    --brand: #0062FF;
+    --brand-dark: #0045B5;
+    --brand-light: #EBF2FF;
+    --brand-tint: #F0F6FF;
+    --brand-glow: rgba(0, 98, 255, 0.25);
+    
+    --cyan-accent: #00D2FF;
+    --cyan-glow: rgba(0, 210, 255, 0.3);
+    
+    --line: #E2E8F0;
+    --line-subtle: #EDF2F7;
+    
+    --shadow-sm: 0 1px 3px rgba(11, 15, 25, 0.04), 0 1px 2px rgba(11, 15, 25, 0.02);
+    --shadow-md: 0 4px 14px rgba(11, 15, 25, 0.06), 0 1px 3px rgba(11, 15, 25, 0.03);
+    --shadow-lg: 0 16px 36px rgba(0, 98, 255, 0.08), 0 4px 12px rgba(11, 15, 25, 0.04);
+    
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--brand-light); color: var(--brand-dark); }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  
+  /* =========================================================
+     HUMAN VERIFICATION GATE OVERLAY (IMAGE 2 REPLICA)
+     ========================================================= */
+  #verify-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: #030712;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+  }
+  #verify-gate.unlock {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .verify-monitor {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    background: #0B0F19;
+    border: 1px solid #1E293B;
+    border-radius: 16px;
+    padding: 36px 28px 30px;
+    box-shadow: 0 0 50px rgba(0, 98, 255, 0.15), 0 20px 40px rgba(0,0,0,0.8);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .verify-monitor::after {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 14px;
+    background: #111827;
+    border-radius: 0 0 6px 6px;
+    border: 1px solid #1E293B;
+    border-top: none;
+  }
+  .verify-top-sub {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: #94A3B8;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .verify-name-glow {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #00FF88;
+    text-shadow: 0 0 12px rgba(0, 255, 136, 0.7), 0 0 24px rgba(0, 255, 136, 0.4);
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+  .verify-security-tag {
+    font-size: 12px;
+    font-weight: 700;
+    color: #F59E0B;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: inline-block;
+  }
+  .verify-captcha-box {
+    background: #070B14;
+    border: 1px solid #1E293B;
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  .verify-captcha-box:hover {
+    border-color: var(--brand);
+    box-shadow: 0 0 20px var(--brand-glow);
+  }
+  .verify-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .verify-checkbox-custom {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #475569;
+    border-radius: 6px;
+    background: #0B0F19;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+  }
+  .verify-captcha-box:hover .verify-checkbox-custom {
+    border-color: #60A5FA;
+  }
+  .verify-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(0, 98, 255, 0.2);
+    border-top-color: var(--brand);
+    border-radius: 50%;
+    display: none;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  .verify-check-icon {
+    display: none;
+    color: #10B981;
+    font-size: 18px;
+    font-weight: 900;
+  }
+  .verify-captcha-box.loading .verify-checkbox-custom {
+    border-color: transparent;
+    background: transparent;
+  }
+  .verify-captcha-box.loading .verify-spinner {
+    display: block;
+  }
+  .verify-captcha-box.verified .verify-checkbox-custom {
+    border-color: #10B981;
+    background: rgba(16, 185, 129, 0.15);
+  }
+  .verify-captcha-box.verified .verify-check-icon {
+    display: block;
+  }
+  .verify-human-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #F8FAFC;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .verify-shield-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .verify-shield-svg {
+    width: 26px;
+    height: 26px;
+    fill: #0284C7;
+  }
+  .verify-shield-label {
+    font-size: 8px;
+    font-weight: 700;
+    color: #38BDF8;
+    letter-spacing: 0.06em;
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  /* =========================================================
+     TECH UI & STYLING
+     ========================================================= */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--brand);
+    background: var(--brand-tint);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(0, 98, 255, 0.18);
+    margin-bottom: 16px;
+  }
+  .eyebrow::before {
+    content: '</>';
+    font-size: 11px;
+    opacity: 0.7;
+  }
+
+  h1, h2, h3, h4 { 
+    color: var(--text-main); 
+    font-weight: 800; 
+    letter-spacing: -0.03em; 
+    line-height: 1.2;
+  }
+  h1 { font-size: clamp(34px, 4.8vw, 56px); letter-spacing: -0.04em; line-height: 1.12; }
+  h2 { font-size: clamp(26px, 3.4vw, 38px); }
+  h3 { font-size: 20px; }
+  p { color: var(--text-muted); font-size: 15.5px; }
+  .lead { font-size: 17.5px; color: #334155; line-height: 1.65; }
+
+  /* HEADER / NAVBAR (Tech SaaS Style) */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line-subtle);
+  }
+  nav.wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .brand { 
+    font-weight: 800; 
+    font-size: 21px; 
+    letter-spacing: -0.04em; 
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .brand span { color: var(--brand); }
+  .brand-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--brand-light);
+    color: var(--brand);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+  }
+  .navlinks { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
+  .navlinks a { color: var(--text-muted); transition: color .2s ease; }
+  .navlinks a:hover { color: var(--brand); }
+  
+  .nav-cta {
+    background: var(--text-main);
+    color: #FFFFFF !important;
+    padding: 10px 22px; 
+    font-size: 13.5px; 
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    transition: all .2s ease;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid transparent;
+  }
+  .nav-cta:hover { 
+    background: var(--brand);
+    border-color: var(--cyan-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px var(--brand-glow);
+  }
+
+  /* BUTTONS */
+  .btn { 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 26px; 
+    font-size: 14px; 
+    font-weight: 600; 
+    border-radius: var(--radius-full); 
+    transition: all .2s ease; 
+    cursor: pointer;
+  }
+  .btn-primary { 
+    background: var(--brand); 
+    color: #FFFFFF; 
+    border: 1px solid var(--brand);
+    box-shadow: 0 4px 14px var(--brand-glow);
+  }
+  .btn-primary:hover { 
+    background: var(--brand-dark); 
+    border-color: var(--brand-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 98, 255, 0.4);
+  }
+  .btn-ghost { 
+    background: #FFFFFF; 
+    border: 1px solid var(--line); 
+    color: var(--text-main);
+    box-shadow: var(--shadow-sm);
+  }
+  .btn-ghost:hover { 
+    border-color: var(--brand); 
+    color: var(--brand);
+    background: var(--brand-tint);
+    transform: translateY(-2px);
+  }
+
+  /* HERO SECTION */
+  .hero {
+    padding: 145px 0 80px; 
+    position: relative;
+    background: 
+      radial-gradient(circle 650px at 90% 15%, rgba(0, 98, 255, 0.07), transparent 70%),
+      radial-gradient(circle 450px at 10% 85%, rgba(0, 210, 255, 0.05), transparent 70%),
+      var(--bg-main);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
+  
+  .hero-tag {
+    display: inline-flex; 
+    align-items: center; 
+    gap: 8px;
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 22px;
+  }
+  .hero-tag .dot {
+    width: 8px; height: 8px;
+    background: #00D2FF;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(0, 210, 255, 0.25);
+    display: inline-block;
+  }
+  .hero h1 { margin-bottom: 20px; }
+  .hero h1 em { 
+    font-style: normal;
+    color: var(--brand);
+  }
+  .hero p.lead { max-width: 520px; margin-bottom: 30px; }
+  
+  .hero-meta { 
+    display: flex; gap: 28px; margin-bottom: 34px; flex-wrap: wrap;
+    padding-top: 22px;
+    border-top: 1px solid var(--line-subtle);
+  }
+  .hero-meta div { font-size: 13px; color: var(--text-light); }
+  .hero-meta strong { 
+    display: block; 
+    color: var(--text-main); 
+    font-size: 16px; 
+    font-weight: 700; 
+    margin-bottom: 2px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  /* PORTRAIT FRAME */
+  .portrait-frame { 
+    position: relative; 
+    aspect-ratio: 1/1.08; 
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    padding: 12px; 
+    background: #FFFFFF;
+    box-shadow: var(--shadow-lg);
+  }
+  .portrait-frame img { 
+    width: 100%; height: 100%; 
+    object-fit: cover; 
+    border-radius: var(--radius-md); 
+  }
+  .portrait-caption {
+    position: absolute; bottom: -14px; left: 20px; right: 20px;
+    background: #FFFFFF;
+    color: var(--text-main);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    padding: 9px 16px; 
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .portrait-caption span:first-child { color: var(--brand); }
+
+  /* GUNUNGAN ACCENT */
+  .gunungan { 
+    display: flex; justify-content: center; align-items: center; 
+    padding: 32px 0; opacity: 0.35; 
+  }
+  .gunungan svg { width: 42px; height: 42px; }
+
+  /* SECTION STRUCTURES */
+  section { padding: 85px 0; }
+  .section-head { max-width: 640px; margin-bottom: 44px; }
+  .section-head h2 { margin-top: 8px; }
+
+  .bg-subtle { 
+    background: var(--bg-subtle); 
+    border-top: 1px solid var(--line-subtle); 
+    border-bottom: 1px solid var(--line-subtle); 
+  }
+
+  /* CARDS & GRIDS */
+  .problem-grid, .services-grid, .engagement-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .problem-card, .service-card, .engagement-card {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 32px 26px;
+    box-shadow: var(--shadow-sm);
+    transition: all .25s ease;
+  }
+  .problem-card:hover, .service-card:hover, .engagement-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: #CBD5E1;
+  }
+  .problem-card .num, .service-num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--brand);
+    font-weight: 700;
+    font-size: 13px;
+    background: var(--brand-tint);
+    width: 34px; height: 34px;
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+    border: 1px solid rgba(0, 98, 255, 0.15);
+  }
+  .service-card h3, .problem-card h3, .engagement-card h3 { margin-bottom: 10px; }
+  .service-tags { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .service-tags span { 
+    font-size: 12px; 
+    font-weight: 600;
+    background: var(--bg-subtle); 
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full); 
+    padding: 4px 12px; 
+    color: var(--text-muted); 
+  }
+
+  .flow-tag {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brand-dark);
+    letter-spacing: 0.04em;
+    background: var(--brand-tint);
+    border: 1px solid rgba(0, 98, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    display: inline-block;
+  }
+
+  /* =========================================================
+     OPPORTUNITY LIST (FIXED: NO CUT-OFF ON MOBILE)
+     ========================================================= */
+  .opportunity-list {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    width: 100%;
+  }
+  .opp-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1.2fr;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--line-subtle);
+    font-size: 15px;
+    transition: background .2s ease;
+  }
+  .opp-row:last-child { border-bottom: none; }
+  .opp-row:hover { background: var(--bg-subtle); }
+  .opp-row .before { color: var(--text-muted); font-weight: 500; word-break: break-word; }
+  .opp-row .arrow { color: var(--brand); font-weight: 800; font-size: 18px; text-align: center; }
+  .opp-row .after { color: var(--text-main); font-weight: 700; word-break: break-word; }
+
+  /* FRAMEWORK LAYERS */
+  .layer-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .layer-item {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 32px 26px;
+    box-shadow: var(--shadow-sm);
+    transition: all .25s ease;
+  }
+  .layer-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  .layer-item .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--brand);
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  .layer-item .sub {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-light);
+    margin-bottom: 6px;
+  }
+  .layer-item h3 { font-size: 21px; margin-bottom: 10px; }
+  .layer-item .flow { font-size: 13.5px; color: var(--brand); font-weight: 700; }
+
+  /* ABOUT SECTION */
+  .about-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 52px; align-items: start; }
+  .about-grid p { margin-bottom: 16px; }
+  .skill-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .skill-list div {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-main);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* METRICS (Tech Dark Banner) */
+  .metrics {
+    background: #080D1A;
+    border-top: 1px solid #1E293B;
+    border-bottom: 1px solid #1E293B;
+    color: #FFFFFF;
+    padding: 64px 0;
+  }
+  .metrics .wrap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .metric {
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    padding-left: 24px;
+  }
+  .metric:first-child { border-left: none; padding-left: 0; }
+  .metric .num {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #60A5FA;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .metric .label { font-size: 14px; color: #94A3B8; font-weight: 500; }
+
+  /* PROOF ITEMS */
+  .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .proof-item {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all .25s ease;
+  }
+  .proof-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  .proof-item .img-wrap {
+    background: var(--bg-subtle);
+    height: 190px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .proof-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+  }
+  .proof-item:hover img { transform: scale(1.03); }
+  .proof-label {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FFFFFF;
+  }
+  .proof-label span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--brand);
+    text-transform: uppercase;
+  }
+  .proof-label p { font-size: 13.5px; margin: 0; font-weight: 600; color: var(--text-main); }
+
+  /* TIMELINE */
+  .timeline {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--line-subtle);
+  }
+  .tl-row:last-child { border-bottom: none; }
+  .tl-row .period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brand);
+  }
+  .tl-role {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 4px 0 8px;
+  }
+
+  /* VALUE BLOCK */
+  .value-block {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 36px;
+    box-shadow: var(--shadow-sm);
+    max-width: 800px;
+  }
+  .value-block p { font-size: 16.5px; line-height: 1.7; margin-bottom: 20px; color: var(--text-main); }
+  .value-block p.muted-line { color: var(--text-muted); font-size: 15.5px; }
+  .value-block .flow-line {
+    background: var(--brand-tint);
+    border: 1px solid rgba(0, 98, 255, 0.2);
+    color: var(--brand-dark);
+    padding: 12px 18px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 14px;
+    word-break: break-word;
+  }
+  .value-block .quote-line {
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--brand-dark);
+    border-left: 3px solid var(--brand);
+    padding-left: 16px;
+    margin-bottom: 0;
+  }
+
+  /* DETAIL LIST & CLOUD */
+  .detail-block { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+  .detail-list div { padding: 16px 0; border-bottom: 1px solid var(--line-subtle); }
+  .detail-list div:first-child { padding-top: 0; }
+  .detail-list div:last-child { border-bottom: none; }
+  .detail-list h4 { font-size: 15px; color: var(--brand); margin-bottom: 4px; }
+  .detail-list p { font-size: 14.5px; margin: 0; }
+  
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag-cloud span {
+    font-size: 13px;
+    font-weight: 600;
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    padding: 7px 15px;
+    color: var(--text-main);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* APPROACH STEP */
+  .approach-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  .approach-step {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 24px 18px;
+    box-shadow: var(--shadow-sm);
+    transition: all .2s ease;
+  }
+  .approach-step:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .approach-step .step-num {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--brand);
+    margin-bottom: 8px;
+  }
+  .approach-step h3 { font-size: 16px; margin-bottom: 6px; }
+  .approach-step p { font-size: 13px; margin: 0; }
+
+  /* ARCHITECTURE */
+  .arch-stack {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .arch-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    border-bottom: 1px solid var(--line-subtle);
+  }
+  .arch-row:last-child { border-bottom: none; }
+  .arch-row .layer-name {
+    padding: 18px 22px;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--brand);
+    background: var(--brand-tint);
+    border-right: 1px solid var(--line-subtle);
+    display: flex; align-items: center;
+  }
+  .arch-row .layer-detail {
+    padding: 18px 24px;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--text-main);
+    display: flex; align-items: center;
+  }
+  .arch-foot {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  /* PHILOSOPHY */
+  .philosophy-list {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 10px 22px;
+    box-shadow: var(--shadow-sm);
+  }
+  .phi-row {
+    display: flex; gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-subtle);
+    align-items: center;
+  }
+  .phi-row:last-child { border-bottom: none; }
+  .phi-row .n {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brand);
+    background: var(--brand-tint);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+  }
+  .phi-row .t { font-size: 15px; font-weight: 600; color: var(--text-main); }
+
+  /* IMPACT */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .impact-card {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 28px 18px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform .2s ease;
+  }
+  .impact-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .impact-card .arrow {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--brand);
+    margin-bottom: 6px;
+  }
+  .impact-card .label { font-size: 14.5px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+  .impact-card .sub { font-size: 13px; color: var(--text-muted); }
+  .impact-note { text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-light); }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .pricing-card {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 36px 30px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all .25s ease;
+    position: relative;
+  }
+  .pricing-card.featured {
+    border: 2px solid var(--brand);
+    box-shadow: var(--shadow-lg);
+  }
+  .pricing-badge {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--brand);
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 4px 14px;
+    border-radius: var(--radius-full);
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .pricing-card .price {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-main);
+    margin: 14px 0;
+  }
+  .pricing-card p { font-size: 14.5px; line-height: 1.6; }
+
+  /* CONTACT SECTION */
+  .contact {
+    background: linear-gradient(180deg, var(--bg-main) 0%, var(--bg-subtle) 100%);
+    border-top: 1px solid var(--line-subtle);
+  }
+  .contact-inner { text-align: center; max-width: 680px; margin: 0 auto; }
+  .contact h2 { margin-bottom: 14px; }
+  .contact p.lead { margin-bottom: 32px; }
+  .contact-actions { display: flex; justify-content: center; gap: 14px; margin-bottom: 40px; flex-wrap: wrap; }
+  .contact-info {
+    display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    font-size: 13.5px;
+    color: var(--text-muted);
+  }
+  .contact-info strong { display: block; color: var(--text-main); font-size: 15px; margin-bottom: 2px; }
+
+  /* FOOTER */
+  footer {
+    padding: 28px 0;
+    background: #FFFFFF;
+    border-top: 1px solid var(--line-subtle);
+    font-size: 13px;
+    color: var(--text-light);
+  }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+
+  /* REVEAL ANIMATION */
+  .reveal { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
+  .reveal.pre { opacity: 0; transform: translateY(20px); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE BREAKPOINTS (FIXING MOBILE TEXT OVERFLOW) */
+  @media (max-width: 960px) {
+    .hero-grid, .about-grid, .detail-block, .detail-block.reverse { grid-template-columns: 1fr; }
+    .problem-grid, .services-grid, .engagement-grid, .layer-strip, .pricing-grid { grid-template-columns: 1fr; }
+    .metrics .wrap { grid-template-columns: 1fr 1fr; row-gap: 28px; }
+    .metric { border-left: none; padding-left: 0; }
+    .approach-grid { grid-template-columns: 1fr 1fr; }
+    .impact-grid { grid-template-columns: 1fr 1fr; }
+    .proof-grid { grid-template-columns: 1fr 1fr; }
+    .tl-row { grid-template-columns: 1fr; gap: 8px; }
+    .arch-row { grid-template-columns: 1fr; }
+    .arch-row .layer-name { border-right: none; border-bottom: 1px solid var(--line-subtle); }
+    .navlinks { display: none; }
+  }
+
+  @media (max-width: 680px) {
+    /* Critical fix for Image 1 bug: stack opportunity row cleanly */
+    .opp-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 16px 20px;
+    }
+    .opp-row .arrow {
+      text-align: left;
+      transform: rotate(90deg);
+      display: inline-block;
+      width: fit-content;
+      margin: 2px 0;
+    }
+    .proof-grid, .impact-grid, .approach-grid { grid-template-columns: 1fr; }
+    .hero-meta { gap: 18px; }
+    .contact-info { gap: 20px; flex-direction: column; }
+    .wrap { padding: 0 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- VERIFICATION GATE / POPUP (IMAGE 2 REPLICA) -->
+<div id="verify-gate">
+  <div class="verify-monitor">
+    <div class="verify-top-sub">Verify to access portfolio of</div>
+    <div class="verify-name-glow">RENDY SOFTWARE</div>
+    <div class="verify-security-tag">Security Verification</div>
+
+    <div class="verify-captcha-box" id="captcha-box">
+      <div class="verify-left">
+        <div class="verify-checkbox-custom">
+          <div class="verify-spinner"></div>
+          <span class="verify-check-icon">✓</span>
+        </div>
+        <span class="verify-human-text">I am human</span>
+      </div>
+      <div class="verify-shield-badge">
+        <svg class="verify-shield-svg" viewBox="0 0 24 24">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z"/>
+        </svg>
+        <span class="verify-shield-label">PORTFOLIO<br>PROTECT</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER / NAVBAR -->
+<header>
+  <nav class="wrap">
+    <div class="brand">
+      RENDY<span>.</span>
+      <span class="brand-tag">DEV</span>
+    </div>
+    <div class="navlinks">
+      <a href="#framework">Kerangka</a>
+      <a href="#about">Tentang</a>
+      <a href="#services">Layanan</a>
+      <a href="#work">Bukti Kerja</a>
+      <a href="#github">GitHub</a>
+      <a href="#pricing">Paket</a>
+      <a href="#contact">Kontak</a>
+    </div>
+    <a href="https://wa.me/6285141220521" class="nav-cta" target="_blank" rel="noopener">Chat WhatsApp</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-tag">
+        <span class="dot"></span>
+        Semarang, Jawa Tengah · Available for New Projects
+      </div>
+      <h1>Membangun sistem digital yang <em>bekerja</em>, bukan cuma tampil bagus.</h1>
+      <p class="lead">Rendy adalah Full Stack Software Engineer. Merancang dan membangun website, aplikasi, hingga sistem ERP dari nol untuk startup, SaaS, dan enterprise.</p>
+      
+      <div class="hero-actions">
+        <a href="https://wa.me/6285141220521" class="btn btn-primary" target="_blank" rel="noopener">Chat via WhatsApp</a>
+        <a href="#pricing" class="btn btn-ghost">Pilih Paket / Project</a>
+      </div>
+
+      <div class="hero-meta">
+        <div><strong>3+ tahun</strong>Full Stack Engineering</div>
+        <div><strong>200+</strong>Koneksi founder &amp; C-level</div>
+        <div><strong>Python · Go · TS</strong>Backend Core Architecture</div>
+      </div>
+    </div>
+
+    <div class="portrait-frame reveal">
+      <img src="https://i.ibb.co.com/qFFk1kpC/file-00000000a8f482118dd0819622ba9c28.png" alt="Rendy, Senior Full Stack Software Engineer">
+      <div class="portrait-caption">
+        <span>Senior Full Stack software Engineer</span>
+        <span>SEMARANG, ID</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gunungan">
+  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 6 L82 68 Q86 76 78 80 L22 80 Q14 76 18 68 Z" stroke="#0062FF" stroke-width="1.6"/>
+    <path d="M50 6 L50 80" stroke="#0062FF" stroke-width="0.8" opacity="0.6"/>
+    <path d="M35 80 Q35 55 50 45 Q65 55 65 80" stroke="#0062FF" stroke-width="0.8" opacity="0.6"/>
+  </svg>
+</div>
+
+<!-- PROBLEM SECTION -->
+<section id="problem">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">01 Realita Digital Saat Ini</span>
+      <h2>Bisnismu sudah digital. Operasionalnya harusnya juga.</h2>
+      <p class="lead" style="margin-top:14px;">Tiga masalah utama yang muncul ketika pertumbuhan bisnis melampaui sistem penopangnya.</p>
+    </div>
+    <div class="problem-grid reveal">
+      <div class="problem-card">
+        <div class="num">01</div>
+        <h3>Pengalaman Terpecah</h3>
+        <p>Website, aplikasi, dan customer journey berjalan sendiri-sendiri tanpa sinkronisasi data yang mulus.</p>
+      </div>
+      <div class="problem-card">
+        <div class="num">02</div>
+        <h3>Operasional Terputus</h3>
+        <p>Data tercecer di spreadsheet, chat WhatsApp, email, dan tools pihak ketiga yang saling terisolasi.</p>
+      </div>
+      <div class="problem-card">
+        <div class="num">03</div>
+        <h3>Keputusan Melambat</h3>
+        <p>Manajemen tidak memiliki satu sumber data akurat untuk melihat performa bisnis secara langsung.</p>
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <div class="flow-tag reveal">Dari Terpecah → Menjadi Terhubung</div>
+    </div>
+  </div>
+</section>
+
+<!-- OPPORTUNITY SECTION (FIXED: NO CUT-OFF) -->
+<section class="bg-subtle">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">02 Peluang Transformasi</span>
+      <h2>Digital seharusnya lebih dari sekadar terlihat bagus.</h2>
+      <p class="lead" style="margin-top:14px;">Beralih dari alur kerja manual yang lambat menuju ekosistem terpadu berkecepatan tinggi.</p>
+    </div>
+    
+    <div class="opportunity-list reveal">
+      <div class="opp-row">
+        <span class="before">Proses manual repetitif</span>
+        <span class="arrow">→</span>
+        <span class="after">Alur kerja otomatis & terpadu</span>
+      </div>
+      <div class="opp-row">
+        <span class="before">Data tercecer di spreadsheet</span>
+        <span class="arrow">→</span>
+        <span class="after">Satu pusat data real-time</span>
+      </div>
+      <div class="opp-row">
+        <span class="before">Website statis sekadar pajangan</span>
+        <span class="arrow">→</span>
+        <span class="after">Pengalaman berorientasi konversi tinggi</span>
+      </div>
+      <div class="opp-row">
+        <span class="before">Sistem departemen terpisah</span>
+        <span class="arrow">→</span>
+        <span class="after">Ekosistem ERP terintegrasi</span>
+      </div>
+      <div class="opp-row">
+        <span class="before">Keputusan reaktif</span>
+        <span class="arrow">→</span>
+        <span class="after">Keputusan strategis berbasis data</span>
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <div class="flow-tag reveal">Digital = Fondasi Skalabilitas Bisnis</div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK SECTION -->
+<section id="framework">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">03 Kerangka Kerja</span>
+      <h2>Satu ekosistem digital. Tiga lapisan bisnis.</h2>
+      <p class="lead" style="margin-top:14px;">Website membangun impresi. Aplikasi memberikan pengalaman. ERP menggerakkan operasional.</p>
+    </div>
+    <div class="layer-strip reveal">
+      <div class="layer-item">
+        <div class="num">01</div>
+        <div class="sub">Kehadiran Digital</div>
+        <h3>Website</h3>
+        <div class="flow">Attract → Engage → Convert</div>
+      </div>
+      <div class="layer-item">
+        <div class="num">02</div>
+        <div class="sub">Pengalaman Digital</div>
+        <h3>Aplikasi</h3>
+        <div class="flow">Connect → Automate → Scale</div>
+      </div>
+      <div class="layer-item">
+        <div class="num">03</div>
+        <div class="sub">Operasional Digital</div>
+        <h3>ERP</h3>
+        <div class="flow">Integrate → Control → Optimize</div>
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <div class="flow-tag reveal">Data · Otomasi · Integrasi</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="bg-subtle" id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <span class="eyebrow">Tentang Rendy</span>
+      <h2>Teknologi mengikuti model bisnis, bukan sebaliknya.</h2>
+    </div>
+    <div class="reveal">
+      <p class="lead">Rendy adalah Full Stack Software Engineer yang fokus membangun solusi menyeluruh: mulai dari frontend interaktif, backend berdaya tahan tinggi, hingga database arsitektur ERP.</p>
+      <p>Berpengalaman memimpin transformasi sistem: migrasi platform monolitik legacy ke stack modern, pipeline pemrosesan data otomatis, hingga modul ERP kustom (Finance, Sales, Inventory, dan Role-Based Access).</p>
+      <p>Prinsip kerja selalu berakar pada kebutuhan operasional nyata: memahami proses bisnis terlebih dahulu agar sistem siap digunakan dalam skala produksi.</p>
+      <div class="skill-list">
+        <div>Python · Go · TypeScript/Node.js</div>
+        <div>Laravel + Tailwind (Web Full Stack)</div>
+        <div>React Native (Multiplatform App)</div>
+        <div>SQL Database & Schema Design</div>
+        <div>Git Flow, CI/CD & Code Review</div>
+        <div>Software Architecture & Security</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Layanan Utama</span>
+      <h2>Solusi rekayasa perangkat lunak menyeluruh.</h2>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3>Website Kustom</h3>
+        <p>Website berperforma tinggi, SEO-friendly, dan dirancang khusus untuk meningkatkan konversi dan kredibilitas brand.</p>
+        <div class="service-tags"><span>Landing Page</span><span>UX/UI</span><span>Conversion</span><span>SEO</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3>Aplikasi Web & Mobile</h3>
+        <p>Aplikasi responsif dan intuitif untuk pelanggan maupun tim internal: dari portal member hingga otomasi alur kerja.</p>
+        <div class="service-tags"><span>Web App</span><span>React Native</span><span>Workflow</span><span>API</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3>Sistem ERP Kustom</h3>
+        <p>Satu sumber kebenaran data perusahaan: menyatukan modul keuangan, penjualan, gudang, dan hak akses staf.</p>
+        <div class="service-tags"><span>Finance</span><span>Inventory</span><span>Sales</span><span>RBAC</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS BANNER -->
+<section class="metrics">
+  <div class="wrap">
+    <div class="metric reveal">
+      <div class="num">3+</div>
+      <div class="label">Tahun Full Stack Engineering</div>
+    </div>
+    <div class="metric reveal">
+      <div class="num">157</div>
+      <div class="label">Chart of Accounts ERP Terkelola</div>
+    </div>
+    <div class="metric reveal">
+      <div class="num">200+</div>
+      <div class="label">Koneksi Founder & C-Level</div>
+    </div>
+    <div class="metric reveal">
+      <div class="num">17+</div>
+      <div class="label">Keahlian Teknologi Terverifikasi</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS: WEBSITE, APP, ERP -->
+<section id="website-solution">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">04 Solusi Website</span>
+      <h2>Ubah website jadi mesin pertumbuhan bisnis.</h2>
+    </div>
+    <div class="detail-block reveal" style="grid-template-columns:1fr;">
+      <div class="detail-list">
+        <div><h4>Brand Experience</h4><p>Positioning brand yang profesional, kredibel, dan membangun rasa percaya calon pelanggan secara instan.</p></div>
+        <div><h4>Lead Generation & Integrasi</h4><p>Struktur CTA, formulir pintar, dan integrasi WhatsApp yang langsung menyaring prospek berkualitas.</p></div>
+        <div><h4>Kecepatan & Responsif</h4><p>Optimasi Core Web Vitals untuk loading kilat di semua jenis perangkat (Mobile, Tablet, Desktop).</p></div>
+        <div><h4>Skalabilitas</h4><p>Struktur kode modular yang siap dikembangkan seiring pertambahan produk atau konten baru.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-subtle" id="app-solution">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">05 Solusi Aplikasi</span>
+      <h2>Bangun pengalaman produk yang cepat dan andal.</h2>
+    </div>
+    <div class="detail-block reveal" style="grid-template-columns:1fr;">
+      <div class="detail-list">
+        <div><h4>Aplikasi Pelanggan</h4><p>Portal pengguna, sistem booking, marketplace, loyalty point, dan membership.</p></div>
+        <div><h4>Aplikasi Manajemen Internal</h4><p>Alur approval berjenjang, monitoring tugas staf, dan tracking produktivitas tim secara real-time.</p></div>
+        <div><h4>Aplikasi Operasional Lapangan</h4><p>Pencatatan inventori, field service, pelaporan mobile, dan sinkronisasi data logistik.</p></div>
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <div class="flow-tag reveal">Ide → Prototipe → Produk Produksi → Skalabilitas</div>
+    </div>
+  </div>
+</section>
+
+<section id="erp-solution">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">06 Solusi ERP</span>
+      <h2>Satu sistem terpadu untuk semua departemen.</h2>
+      <p class="lead" style="margin-top:14px;">Menghubungkan data yang tersebar menjadi alur kerja yang terstruktur dan otomatis.</p>
+    </div>
+    <div class="detail-block reveal" style="grid-template-columns:1fr;">
+      <div>
+        <div class="tag-cloud">
+          <span>Finance & Akuntansi</span><span>Sales & CRM</span><span>Gudang & Stok</span>
+          <span>Purchasing</span><span>HR & Payroll</span><span>Operational Flow</span><span>Executive Reporting</span>
+        </div>
+        <div class="flow-tag" style="margin-top:28px; text-align:left;">Departemen Terpisah → Alur Terpadu → Data Terpusat</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF SECTION -->
+<section class="bg-subtle" id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Bukti Kerja Nyata</span>
+      <h2>Keahlian terbukti dari arsitektur nyata.</h2>
+    </div>
+    <div class="proof-grid reveal">
+      <div class="proof-item">
+        <div class="img-wrap">
+          <img src="https://i.ibb.co.com/2Y03Ntpr/IMG-20260814-WA0020.jpg" alt="Solusi ERP Showcase">
+        </div>
+        <div class="proof-label"><span>DATABASE</span><p>Manajemen Skema & SQL</p></div>
+      </div>
+      <div class="proof-item">
+        <div class="img-wrap">
+          <img src="https://i.ibb.co.com/21c92nYG/IMG-20260814-WA0011.jpg" alt="Solusi Website Showcase">
+        </div>
+        <div class="proof-label"><span>ANALYTICS</span><p>Real-time Business BI</p></div>
+      </div>
+      <div class="proof-item">
+        <div class="img-wrap">
+          <img src="https://i.ibb.co.com/WNZ0M7RG/IMG-20260814-WA0018.jpg" alt="Solusi Aplikasi Showcase">
+        </div>
+        <div class="proof-label"><span>ERP MODUL</span><p>General Ledger & Finance</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GITHUB SECTION -->
+<section id="github">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">GitHub & Ekosistem Teknologi</span>
+      <h2>Aktif menulis kode bersih dan terstruktur.</h2>
+    </div>
+    <div class="detail-block reveal">
+      <div class="detail-img" style="border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);">
+        <img src=<a href="https://ibb.co.com/Y4HHyK8N"><img src="https://i.ibb.co.com/DP0086k1/IMG-20260817-WA0006.jpg" alt="IMG-20260817-WA0006" border="0"></a>
+      </div>
+      <div class="detail-list">
+        <div>
+          <h4>Tech Stack Teruji</h4>
+          <div class="tag-cloud" style="margin-top:10px;">
+            <span>Go</span><span>TypeScript</span><span>Python</span><span>PHP/Laravel</span>
+            <span>React</span><span>React Native</span><span>TailwindCSS</span><span>MySQL</span>
+            <span>PostgreSQL</span><span>Docker</span><span>AWS / Cloudflare</span><span>Git Flow</span>
+          </div>
+        </div>
+        <div>
+          <h4>Aktivitas & Kualitas Kode</h4>
+          <p>130+ kontribusi repositori aktif dengan komitmen pada clean architecture dan code maintainability.</p>
+        </div>
+        <div>
+          <p style="font-weight: 600; color: var(--brand-dark); font-size: 15px;">"Dealing with failure is easy: work hard to improve." — Alan Perlis</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="bg-subtle" id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Pengalaman Profesional</span>
+      <h2>Jejak karier rekayasa perangkat lunak.</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-row">
+        <div class="period">Jun 2026 · 2 bln</div>
+        <div>
+          <h3>Full Stack Engineer</h3>
+          <div class="tl-role">Asian Technology Solutions</div>
+          <p>Mengembangkan sistem berskala enterprise dengan fokus pada performa tinggi dan integrasi API yang aman.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="period">Mei 2024 · 2 thn 3 bln</div>
+        <div>
+          <h3>Full Stack Engineer</h3>
+          <div class="tl-role">Spasi Indonesia</div>
+          <p>Membangun backend service yang tangguh dan data-processing pipelines untuk operasional bisnis internal.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="period">Jan 2022 – Apr 2024 · 2 thn 4 bln</div>
+        <div>
+          <h3>Full Stack Engineer</h3>
+          <div class="tl-role">Indoteknik.com</div>
+          <p>Memimpin arsitektur dan migrasi platform indoteknik.com dari legacy stack ke arsitektur web modern yang terukur.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE STORY -->
+<section id="value-story">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Nilai Tambah ERP Kustom</span>
+      <h2>Mengapa sistem kustom lebih unggul?</h2>
+    </div>
+    <div class="value-block reveal">
+      <p class="muted-line">Marketplace memiliki stok sendiri. Gudang mencatat di buku terpisah. Tim finance memakai spreadsheet manual. Sales berkoordinasi lewat chat yang tercecer.</p>
+      <p>Sistem ERP kustom hadir untuk menyatukan seluruh mata rantai bisnis ke dalam satu alur terpusat:</p>
+      <div class="flow-line">Sales → Pesanan → Stok Gudang → Pembelian → Finansial → Laporan Eksekutif</div>
+      <p class="quote-line" style="margin-top: 22px;">Prinsip utama: Software dibuat menyesuaikan alur kerja unik bisnismu, bukan bisnismu yang dipaksa tunduk pada keterbatasan software siap pakai.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH SECTION -->
+<section class="bg-subtle" id="approach">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Metodologi Kerja</span>
+      <h2>Dari problem bisnis ke produk siap pakai.</h2>
+    </div>
+    <div class="approach-grid reveal">
+      <div class="approach-step"><div class="step-num">01</div><h3>Discover</h3><p>Bedah proses bisnis & identifikasi kebutuhan.</p></div>
+      <div class="approach-step"><div class="step-num">02</div><h3>Define</h3><p>Spesifikasi teknis & prioritas fitur.</p></div>
+      <div class="approach-step"><div class="step-num">03</div><h3>Design</h3><p>Perancangan UI/UX & arsitektur database.</p></div>
+      <div class="approach-step"><div class="step-num">04</div><h3>Build</h3><p>Development berkala & pengujian menyeluruh.</p></div>
+      <div class="approach-step"><div class="step-num">05</div><h3>Scale</h3><p>Peluncuran, monitoring & optimasi lanjut.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE SECTION -->
+<section id="architecture">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">08 Arsitektur Sistem</span>
+      <h2>Dirancang siap untuk pertumbuhan enterprise.</h2>
+      <p class="lead" style="margin-top:14px;">Fondasi teknologi yang kokoh, modular, dan mudah di-maintain.</p>
+    </div>
+    <div class="arch-stack reveal">
+      <div class="arch-row"><div class="layer-name">User Interface</div><div class="layer-detail">Web App · Responsive Mobile · Dashboard Admin</div></div>
+      <div class="arch-row"><div class="layer-name">API & Gateway</div><div class="layer-detail">Authentication (JWT/OAuth) · Rate Limiting · Data Encryption</div></div>
+      <div class="arch-row"><div class="layer-name">Business Logic</div><div class="layer-detail">Microservices / Modular Monolith · Automations · Event Queue</div></div>
+      <div class="arch-row"><div class="layer-name">Data Persistence</div><div class="layer-detail">Relational SQL · Redis Cache · Automated Backups</div></div>
+      <div class="arch-row"><div class="layer-name">Integrations</div><div class="layer-detail">Payment Gateway · WhatsApp API · Logistik & Kurir · Cloud BI</div></div>
+    </div>
+    <div class="arch-foot reveal">Cloud Ready · API First · Database Integrity · Strict Security</div>
+  </div>
+</section>
+
+<!-- IMPACT SECTION -->
+<section class="bg-subtle" id="impact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">09 Dampak Bisnis Nyata</span>
+      <h2>Investasi teknologi yang menggerakkan metrik.</h2>
+    </div>
+    <div class="impact-grid reveal">
+      <div class="impact-card"><div class="arrow">↓</div><div class="label">Biaya Operasional</div><div class="sub">Melalui eliminasi proses manual repetitif</div></div>
+      <div class="impact-card"><div class="arrow">↑</div><div class="label">Tingkat Konversi</div><div class="sub">Pengalaman pengguna yang cepat dan mulus</div></div>
+      <div class="impact-card"><div class="arrow">↓</div><div class="label">Waktu Pemrosesan</div><div class="sub">Otomasi alur persetujuan & pencatatan</div></div>
+      <div class="impact-card"><div class="arrow">↑</div><div class="label">Akurasi Data</div><div class="sub">Visibilitas stok dan keuangan real-time</div></div>
+    </div>
+    <p class="impact-note reveal">*Hasil aktual bervariasi sesuai skala operasional dan tingkat adopsi sistem.</p>
+  </div>
+</section>
+
+<!-- PRICING SECTION -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align: center; margin: 0 auto 48px;">
+      <span class="eyebrow">Pilihan Paket & Investasi</span>
+      <h2>Pilih solusi sesuai skala pertumbuhan bisnismu.</h2>
+      <p class="lead" style="margin-top: 12px;">Transparan, tanpa biaya tersembunyi, dan fokus pada hasil.</p>
+    </div>
+    <div class="pricing-grid reveal">
+      <div class="pricing-card">
+        <div>
+          <span class="eyebrow" style="margin-bottom: 8px;">Website</span>
+          <h3>Company Profile</h3>
+          <div class="price">Rp 1,5 Jt</div>
+          <p>Solusi website profesional, responsif, dan siap melipatgandakan kredibilitas bisnis Anda di mata klien.</p>
+        </div>
+        <a href="https://wa.me/6285141220521?text=Halo%20Rendy%2C%20saya%20tertarik%20paket%20Web%20Company%20Profile" class="btn btn-ghost" style="margin-top:28px;" target="_blank" rel="noopener">Pilih Paket Ini</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Populer & Skalabel</div>
+        <div>
+          <span class="eyebrow" style="margin-bottom: 8px;">Aplikasi Kustom</span>
+          <h3>Aplikasi Web / Mobile</h3>
+          <div class="price">Rp 60 Jt</div>
+          <p>Aplikasi bisnis kustom untuk portal pelanggan, sistem manajemen internal, hingga otomasi alur kerja staf.</p>
+        </div>
+        <a href="https://wa.me/6285141220521?text=Halo%20Rendy%2C%20saya%20tertarik%20paket%20Aplikasi%20Web%20Mobile" class="btn btn-primary" style="margin-top:28px;" target="_blank" rel="noopener">Mulai Konsultasi</a>
+      </div>
+
+      <div class="pricing-card">
+        <div>
+          <span class="eyebrow" style="margin-bottom: 8px;">Enterprise</span>
+          <h3>E-Commerce + ERP</h3>
+          <div class="price">Rp 30 - 100 Jt</div>
+          <p>Ekosistem menyeluruh: toko online terintegrasi penuh dengan pembukuan keuangan, stok gudang, dan laporan.</p>
+        </div>
+        <a href="https://wa.me/6285141220521?text=Halo%20Rendy%2C%20saya%20tertarik%20paket%20E-Commerce%20ERP" class="btn btn-ghost" style="margin-top:28px;" target="_blank" rel="noopener">Diskusi Kebutuhan</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact" id="contact">
+  <div class="wrap contact-inner">
+    <span class="eyebrow">Hubungi Sekarang</span>
+    <h2>Mari bangun sistem digital yang siap bertumbuh bersama bisnismu.</h2>
+    <p class="lead">Mulai dari satu sesi konsultasi singkat untuk mendiskusikan kebutuhan arsitektur sistem Anda.</p>
+    <div class="contact-actions">
+      <a href="https://wa.me/6285141220521" class="btn btn-primary" target="_blank" rel="noopener">Chat via WhatsApp</a>
+      <a href="mailto:rendyajahh245@gmail.com" class="btn btn-ghost">Kirim Email</a>
+    </div>
+    <div class="contact-info">
+      <div><strong>WhatsApp</strong>0851-4122-0521</div>
+      <div><strong>Email</strong>rendyajahh245@gmail.com</div>
+      <div><strong>Lokasi</strong>Semarang, Jawa Tengah</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div>© 2026 Rendy · Full Stack Software Engineer</div>
+    <div>Web · Mobile App · Backend Architecture · Custom ERP</div>
+  </div>
+</footer>
+
+<script>
+  // Verification Gate Interaction (Simulates Human Verification)
+  const captchaBox = document.getElementById('captcha-box');
+  const verifyGate = document.getElementById('verify-gate');
+
+  if (captchaBox && verifyGate) {
+    captchaBox.addEventListener('click', function() {
+      if (this.classList.contains('verified') || this.classList.contains('loading')) return;
+      
+      this.classList.add('loading');
+      
+      setTimeout(() => {
+        this.classList.remove('loading');
+        this.classList.add('verified');
+        
+        setTimeout(() => {
+          verifyGate.classList.add('unlock');
+        }, 700);
+      }, 1100);
+    });
+  }
+
+  // Scroll Reveal Animations
+  try {
+    const els = document.querySelectorAll('.reveal');
+    els.forEach(el => el.classList.add('pre'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { 
+        if(e.isIntersecting) { 
+          e.target.classList.remove('pre'); 
+          io.unobserve(e.target);
+        } 
+      });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+  } catch(e) { }
+</script>
+
+</body>
+</html>
