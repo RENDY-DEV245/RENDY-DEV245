@@ -99,17 +99,7 @@
     50% { opacity: 0.8; background: rgba(0, 210, 255, 0.4); }
     100% { opacity: 0; }
   }
-  /* Matrix Rain Canvas */
-  #tech-rain-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.16;
-  }
+
   /* Cyber Grid Background */
   .cyber-grid-overlay {
     position: fixed;
@@ -1690,51 +1680,6 @@
     lastScrollY = window.scrollY;
   }, { passive: true });
 
-  // 2. Matrix Rain Canvas Interaktif
-  (function initTechRain() {
-    const canvas = document.getElementById('tech-rain-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-
-    const characters = '01{}<>/[]+=*~#$RENDY_DEV_SQL_API_GLITCH';
-    const fontSize = 14;
-    const columns = Math.floor(width / fontSize);
-    const drops = Array.from({ length: columns }).fill(1);
-
-    function draw() {
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-      ctx.fillRect(0, 0, width, height);
-
-      ctx.fillStyle = '#0062FF';
-      ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = characters.charAt(Math.floor(Math.random() * characters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i] += scrollSpeedFactor;
-      }
-      
-      // Kembalikan perlahan ke kecepatan normal
-      if (scrollSpeedFactor > 1) {
-        scrollSpeedFactor -= 0.05;
-      }
-
-      requestAnimationFrame(draw);
-    }
-    draw();
-  })();
 
   // 3. Neon Lightning Tech Surge
   (function initLightningSurge() {
