@@ -1071,6 +1071,15 @@
     .pricing-grid { margin-top: 10px; gap: 36px; }
   }
 
+    @media (max-width: 680px) {
+  .hero {
+    padding: 68px 0 20px !important; /* Pas di bawah navbar fixed */
+  }
+  .hero-grid {
+    gap: 24px !important;
+  }
+}
+  
   @media (max-width: 680px) {
     .opp-row {
       grid-template-columns: 1fr;
@@ -1096,8 +1105,7 @@
 <!-- TOP SCROLL HUD LASER LINE -->
 <div id="scroll-progress-hud"></div>
 
-<!-- TECH MATRIX RAIN, LIGHTNING SURGE & CURSOR AURA -->
-<canvas id="tech-rain-canvas"></canvas>
+
 <div id="lightning-surge"></div>
 <div class="cyber-grid-overlay"></div>
 <div id="tech-cursor-aura"></div>
@@ -1155,7 +1163,7 @@
         <span class="tech-pulse-dot"></span>
         Semarang, Jawa Tengah · Available for New Projects
       </div>
-      <h1 class="glitch-on-touch">Membangun sistem digital yang <em>bekerja</em>, bukan cuma tampil bagus.</h1>
+      <h1 class="glitch-on-touch">Asuka Group membangun ERP <em>sendiri</em>, sejak 2012 untuk mengintegrasikan operasional bisnisnya</em>-Alfan Wahyuddin, CEO Asuka Group.</h1>
       <p class="lead">Rendy adalah Full Stack Software Engineer. Merancang dan membangun website, aplikasi, hingga sistem ERP dari nol untuk startup, SaaS, dan enterprise.</p>
       
       <div class="hero-actions">
@@ -1758,14 +1766,7 @@
       }, 1100);
     });
   }
-  @media (max-width: 680px) {
-  .hero {
-    padding: 68px 0 20px !important; /* Pas di bawah navbar fixed */
-  }
-  .hero-grid {
-    gap: 24px !important;
-  }
-}
+
 
   // 6. Scroll Reveal Animations
   try {
